@@ -28,8 +28,8 @@ app.post("/test", (req, res) => {
   const q = "INSERT INTO testlang.admin (`user`, `password`) VALUES (?)";
   const values = [req.body.user, req.body.password];
   db.query(q, [values], (err, data) => {
-    if (err) return res.json("error message");
-    return res.json("added successfully");
+    if (err) return res.json(err);
+    return res.json(data);
   });
 });
 app.listen(8000, () => {
