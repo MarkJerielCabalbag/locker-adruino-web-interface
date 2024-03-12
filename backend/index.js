@@ -10,6 +10,8 @@ const db = mysql.createConnection({
   database: "testlang",
 });
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.json("This is the backend ulet");
 });
@@ -24,12 +26,12 @@ app.get("/test", (req, res) => {
 
 app.post("/test", (req, res) => {
   const q = "INSERT INTO testlang.admin (`user`, `password`) VALUES (?)";
-  const values = ["index user", "index password"];
+  const values = [req.body.user, req.body.password];
   db.query(q, [values], (err, data) => {
     if (err) return res.json("error message");
-    return res.json(data);
+    return res.json("added successfully");
   });
 });
 app.listen(8000, () => {
-  console.log("kamusta tulog lods?, from backend");
+  console.log("hello Frontend, from backend");
 });
